@@ -29,7 +29,7 @@
 								<div class="col-12">
 									<button type="submit" class="btn btn-success" data-toggle="modal" data-target="#ModalInsert"> ADD </button>
 
-									<button type="submit" class="btn btn-primary pull-right ml-2"> <a href="<?php echo site_url('admin/exl'); ?>" class="text-light">Print PDF</a> </button>
+									<button type="submit" class="btn btn-primary pull-right ml-2"> <a href="<?php echo site_url('admin/pdfdetails'); ?>" class="text-light">Print PDF</a> </button>
 
 									<button type="submit" class="btn btn-primary pull-right"> <a href="<?php echo site_url('admin/exl'); ?>" class="text-light">Print XML</a> </button>
 								</div>
@@ -59,7 +59,7 @@
 				</div>
 			</div>
 			<!-- Modal Update Rakyat-->
-			<form id="add-row-form" action="<?php echo site_url('admin/insert'); ?>" method="post">
+			<form id="add-row-form" action="<?php echo site_url('admin/insertray'); ?>" method="post" enctype="multipart/form-data">
 				<div class="modal fade" id="ModalInsert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -67,6 +67,17 @@
 								<h4 class="modal-title" id="myModalLabel">Update User</h4>
 							</div>
 							<div class="modal-body">
+								<div class="form-group form-file-upload form-file-multiple">
+									<input type="file" multiple="" name="fotoa" class="inputFileHidden">
+									<div class="input-group">
+										<input type="text" class="form-control inputFileVisible" placeholder="Single File" />
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-fab btn-round btn-primary">
+												<i class="material-icons">attach_file</i>
+											</button>
+										</span>
+									</div>
+								</div>
 								<div class="form-group">
 									<input type="text" name="nik" class="form-control" placeholder="NIK">
 								</div>
@@ -101,6 +112,13 @@
 								<h4 class="modal-title" id="myModalLabel">Update User</h4>
 							</div>
 							<div class="modal-body">
+
+								<div class="card card-profile">
+									<div class="card-avatar">
+										<img class="img" src="">
+									</div>
+								</div>
+
 								<div class="form-group">
 									<input type="text" name="nik" class="form-control" placeholder="NIK" readonly>
 								</div>
@@ -209,7 +227,12 @@
 						"data": "email"
 					},
 					{
-						"data": "foto"
+						"data": "foto",
+						"render": function(data) {
+
+							return '<img src="<?php echo base_url('assets/img/'); ?>' + data + '"style="height:100px;width:100px;" />';
+
+						}
 					},
 					{
 						"data": "view"
@@ -227,12 +250,14 @@
 				var nama = $(this).data('name');
 				var telp = $(this).data('telp');
 				var email = $(this).data('email');
+				var foto = $(this).data('foto');
 
 				$('#ModalUpdate').modal('show');
 				$('[name="nik"]').val(nik);
 				$('[name="nama"]').val(nama);
 				$('[name="telp"]').val(telp);
 				$('[name="email"]').val(email);
+				$('[name="foto"]').val(foto);
 
 			});
 
@@ -246,6 +271,41 @@
 			});
 			// End delete Records
 
+		});
+
+		//// FileInput
+		$('.form-file-simple .inputFileVisible').click(function() {
+			$(this).siblings('.inputFileHidden').trigger('click');
+		});
+
+		$('.form-file-simple .inputFileHidden').change(function() {
+			var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
+			$(this).siblings('.inputFileVisible').val(filename);
+		});
+
+		$('.form-file-multiple .inputFileVisible, .form-file-multiple .input-group-btn').click(function() {
+			$(this).parent().parent().find('.inputFileHidden').trigger('click');
+			$(this).parent().parent().addClass('is-focused');
+		});
+
+		$('.form-file-multiple .inputFileHidden').change(function() {
+			var names = '';
+			for (var i = 0; i < $(this).get(0).files.length; ++i) {
+				if (i < $(this).get(0).files.length - 1) {
+					names += $(this).get(0).files.item(i).name + ',';
+				} else {
+					names += $(this).get(0).files.item(i).name;
+				}
+			}
+			$(this).siblings('.input-group').find('.inputFileVisible').val(names);
+		});
+
+		$('.form-file-multiple .btn').on('focus', function() {
+			$(this).parent().siblings().trigger('focus');
+		});
+
+		$('.form-file-multiple .btn').on('focusout', function() {
+			$(this).parent().siblings().trigger('focusout');
 		});
 	</script>
 </body>

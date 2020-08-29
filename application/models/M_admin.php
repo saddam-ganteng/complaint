@@ -19,11 +19,18 @@ class M_admin extends CI_Model
             'nama'        => $this->input->post('nama'),
             'password'  => $this->input->post('password'),
             'telp'        => $this->input->post('telp'),
-            'email'  => $this->input->post('email')
+            'email'  => $this->input->post('email'),
+            'foto'  => $this->input->post('foto')
         );
         $result = $this->db->insert('masyarakat', $data);
         return $result;
     }
+    public function insert($data)
+    {
+        $this->db->insert('masyarakat', $data);
+        return TRUE;
+    }
+
     //UPDATE RAKYAT
     function update_rakyat()
     {
@@ -97,7 +104,7 @@ class M_admin extends CI_Model
                 <tr>	
                     <td>' . $row->nik . '</td>
                     <td>' . $row->nama . '</td>
-                    <td>' . $row->telp . '</> 
+                    <td>' . $row->telp . '</td> 
                     <td>' . $row->email . '</td>
                 </tr> ';
         }
