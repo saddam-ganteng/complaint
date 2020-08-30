@@ -23,7 +23,7 @@
 
     background-color: #9c27b0;
 
-    <title>base</title>
+    <title> <?= $title; ?> </title>
 </head>
 
 <body>
@@ -42,7 +42,7 @@
 
     <!-- Full Page Image Header with Vertically Centered Content -->
 
-    <header class="masthead darken-pseudo darken-with-text">
+    <div class="masthead darken-pseudo darken-with-text">
         <div class="container h-100 ">
             <div class="row h-100 align-items-center">
                 <div class="col-6 offset-3 text-center ">
@@ -52,17 +52,23 @@
                 </div>
             </div>
         </div>
-    </header>
+    </div>
 
     <!-- Page Content -->
-    <section class="py-5">
-        <div class="container">
-            <h2 class="font-weight-light">Page Content</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus ab nulla dolorum autem nisi
-                officiis blanditiis voluptatem hic, assumenda aspernatur facere ipsam nemo ratione cumque magnam enim
-                fugiat reprehenderit expedita.</p>
+
+    <div class="container-fluid">
+        <div class="row mx-4">
+            <div class="col-12 text-center py-5" id="box">
+                <div class="container py-5">
+                    <h2 class="">Let&apos;s talk product</h2>
+                    <h5 class="">This is the paragraph where you can write more details about your product. Keep you
+                        user engaged by providing meaningful information. Remember that by this time, the user is curious,
+                        otherwise he wouldn&apos;t scroll to get here. Add a button if you want the user to see more.</h5>
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
+
 
     <div class="modal" id="modalogin">
         <div class="modal-dialog modal-dialog-centered modal-lg">
