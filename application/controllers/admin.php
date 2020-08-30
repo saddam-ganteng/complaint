@@ -172,14 +172,12 @@ class admin extends CI_Controller
 
         $this->upload->initialize($config);
 
-
         if (!empty($_FILES['fotoa']['name'])) {
             if ($this->upload->do_upload('fotoa')) {
                 $foto = $this->upload->data();
                 $data = array(
                     'nik'       => $nik,
                     'nama'       => $name,
-
                     'telp'       => $telp,
                     'email'       => $email,
                     'foto'       => $foto['file_name'],

@@ -14,7 +14,8 @@ class auth extends CI_Controller
         if ($this->session->userdata('email')) {
             redirect('admin');
         }
-        $this->load->view('dashboard/login');
+        $data['title'] = 'Dashboard';
+        $this->load->view('dashboard/login', $data);
     }
 
     public function register_rakyat()
@@ -66,7 +67,8 @@ class auth extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
             Sorry Login failed try again! </div>');
-            $this->load->view('dashboard/login');
+            $data['title'] = 'Dashboard';
+            $this->load->view('dashboard/login', $data);
         } else {
             $this->_login();
         }
