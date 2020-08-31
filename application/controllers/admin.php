@@ -57,6 +57,7 @@ class admin extends CI_Controller
         $data['user'] = $this->db->get_where('login', ['email' => $this->session->userdata('email')])->row_array();
         $this->load->view('admin/user_profile', $data);
     }
+
     public function editprofile()
     {
         $data['title'] = 'Profile';
@@ -69,7 +70,6 @@ class admin extends CI_Controller
         $this->form_validation->set_rules('telp', 'Telp', 'required|trim', [
             'required' => 'Please enter a Mobile Phone number in the field!',
         ]);
-
 
 
         if ($this->form_validation->run() == false) {
@@ -113,6 +113,54 @@ class admin extends CI_Controller
         }
     }
 
+    public function editpassword()
+    {
+        $data['title'] = 'Change Password';
+        $data['navbar'] = 'Change Password';
+        $data['user'] = $this->db->get_where('login', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->form_validation->set_rules('oldpass', 'Current Password', 'required|trim', [
+            'required' => 'Please enter a Current Password in the field!',
+        ]);
+        $this->form_validation->set_rules('newpass1', 'New Password', 'required|trim|min_length[5]|matches[newpass2]', [
+            'required' => 'Please enter a New Password in the field!',
+            'min_length' => 'Minimum 5 Characters '
+        ]);
+        $this->form_validation->set_rules('newpass2', 'Confirm New Password', 'required|trim|min_length[5]|matches[newpass1]', [
+            'required' => 'Please Confirm New Password in the field!',
+            'min_length' => 'Minimum 5 Characters',
+            'matches' => 'Passwords are not the same '
+        ]);
+
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('admin/user_profile_cp', $data);
+        } else {
+            $current_password = $this->input->post('oldpass');
+            $new_password = $this->input->post('newpass1');
+
+            if (!password_verify($current_password, $data['user']['password'])) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger mt-3" role="alert">
+                Wrong Current Password! </div>');
+                redirect('admin/editpassword');
+            } else {
+                if ($current_password == $new_password) {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger mt-3" role="alert">
+                    New Password cannot be the same as Current </div>');
+                    redirect('admin/editpassword');
+                } else {
+                    $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+                    $this->db->set('password', $password_hash);
+                    $this->db->where('email', $this->session->userdata('email'));
+                    $this->db->update('login');
+                    $this->session->set_flashdata('message', '<div class="alert alert-success mt-3" role="alert">
+                    Password Changed! </div>');
+                    redirect('admin/editpassword');
+                }
+            }
+        }
+    }
+
     function get_rakyat_json()
     {     //get product data and encode to be JSON object
         echo $this->M_admin->get_all_rakyat();
@@ -151,6 +199,16 @@ class admin extends CI_Controller
             'title' => 'Laporan Excel',
             'user' => $this->M_admin->get_user()
         );
+        $this->load->view('print', $data);
+    }
+
+    public function xml()
+    {
+        header("Content-type: application/vnd.openxmlformats-officedocument.spreadsheet.sheet");
+        header('Content-Disposition: attachment; filename="Data Pengaduan.xls"'); // Set nama file excel nya
+        header('Cache-Control: max-age=0');
+
+        $data['user'] = $this->M_admin->get_user();
         $this->load->view('print', $data);
     }
 

@@ -1,4 +1,4 @@
-<div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/material/img/sidebar-1.jpg">
+<div class="sidebar" data-color="purple" data-background-color="white" data-image="<?= base_url() ?>assets/material/img/sidebar-1.jpg">
   <div class="logo"><a href="#" class="simple-text logo-normal">
       Dreamapps
     </a></div>

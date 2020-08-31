@@ -97,7 +97,8 @@ class M_admin extends CI_Model
 		                <th width="20%">nik</th>
 		                <th width="20%">nama</th>
 		                <th width="20%">telp</th>
-		                <th width="20%">email</th>
+                        <th width="20%">email</th>
+                        <th width="20%">foto</th>
 		              </tr>';
         foreach ($data->result() as $row) {
             $output .= '
@@ -106,6 +107,7 @@ class M_admin extends CI_Model
                     <td>' . $row->nama . '</td>
                     <td>' . $row->telp . '</td> 
                     <td>' . $row->email . '</td>
+                    <td><img src="' . base_url() . 'assets/img/' . $row->foto . '" height="100"></td>
                 </tr> ';
         }
 

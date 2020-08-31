@@ -1,12 +1,12 @@
 <?php
 
-header("Content-type: application/octet-stream");
+// header("Content-type: application/octet-stream");
 
-header("Content-Disposition: attachment; filename=$title.xls");
+// header("Content-Disposition: attachment; filename=$title.xls");
 
-header("Pragma: no-cache");
+// header("Pragma: no-cache");
 
-header("Expires: 0");
+// header("Expires: 0");
 
 ?>
 <?php echo "tanggal : " . date('d-m-y'); ?>
@@ -17,6 +17,7 @@ header("Expires: 0");
 			<th>nama</th>
 			<th>telp</th>
 			<th>email</th>
+			<th>foto</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -27,6 +28,9 @@ header("Expires: 0");
 				<td><?= $u->nama ?></td>
 				<td><?= $u->telp ?></td>
 				<td><?= $u->email ?></td>
+				<td height="80">
+					<img src="<?= base_url('assets/img/') . $u->foto ?>" alt="foto ini abis" height="60">
+				</td>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>

@@ -31,7 +31,7 @@
 
 									<button type="submit" class="btn btn-primary pull-right ml-2"> <a href="<?php echo site_url('admin/pdfdetails'); ?>" class="text-light">Print PDF</a> </button>
 
-									<button type="submit" class="btn btn-primary pull-right"> <a href="<?php echo site_url('admin/exl'); ?>" class="text-light">Print XML</a> </button>
+									<button type="submit" class="btn btn-primary pull-right"> <a href="<?php echo site_url('admin/xml'); ?>" class="text-light">Print XML</a> </button>
 								</div>
 
 								<div class="card-body">
@@ -113,9 +113,9 @@
 							</div>
 							<div class="modal-body">
 
-								<div class="card card-profile">
+								<div class="card-profile">
 									<div class="card-avatar">
-										<img class="img" src="">
+										<img class="img" src="" name="foto" id="foto">
 									</div>
 								</div>
 
@@ -257,7 +257,7 @@
 				$('[name="nama"]').val(nama);
 				$('[name="telp"]').val(telp);
 				$('[name="email"]').val(email);
-				$('[name="foto"]').val(foto);
+				$('#edit_foto').attr('src', $row.find('img').attr('src'));
 
 			});
 

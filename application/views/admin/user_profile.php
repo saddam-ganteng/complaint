@@ -46,14 +46,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="form-group">
-												<label class="bmd-label-floating">Password</label>
-												<input type="text" name="password" class="form-control">
-											</div>
-										</div>
-									</div>
+
 									<div class="row">
 										<div class="col-md-4">
 											<div class="form-group">
@@ -75,7 +68,8 @@
 											</div>
 										</div>
 									</div>
-									<button type="submit" class="btn btn-primary pull-right">Update Profile</button>
+									<button type="submit" class="btn btn-primary pull-right mt-4 ml-2">Update Profile</button>
+									<a class="btn btn-primary pull-right mt-4" href="<?= base_url('admin/editpassword') ?>">Update Password</a>
 									<div class="clearfix"></div>
 
 								</div>
@@ -124,6 +118,7 @@
 
 	<script src="<?php echo site_url() . 'assets/material/js/plugins/chartist.min.js' ?>"></script>
 	<script src="<?php echo site_url() . 'assets/material/js/plugins/nouislider.min.js' ?>"></script>
+	<script src="<?php echo site_url() . 'assets/material/js/material-dashboard.js' ?>" type="text/javascript"></script>
 
 
 	<script>
