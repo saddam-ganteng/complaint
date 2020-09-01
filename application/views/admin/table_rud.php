@@ -64,7 +64,7 @@
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h4 class="modal-title" id="myModalLabel">Update User</h4>
+								<h4 class="modal-title" id="myModalLabel">Insert User</h4>
 							</div>
 							<div class="modal-body">
 								<div class="form-group form-file-upload form-file-multiple">
@@ -112,13 +112,6 @@
 								<h4 class="modal-title" id="myModalLabel">Update User</h4>
 							</div>
 							<div class="modal-body">
-
-								<div class="card-profile">
-									<div class="card-avatar">
-										<img class="img" src="" name="foto" id="foto">
-									</div>
-								</div>
-
 								<div class="form-group">
 									<input type="text" name="nik" class="form-control" placeholder="NIK" readonly>
 								</div>
@@ -250,14 +243,13 @@
 				var nama = $(this).data('name');
 				var telp = $(this).data('telp');
 				var email = $(this).data('email');
-				var foto = $(this).data('foto');
 
 				$('#ModalUpdate').modal('show');
 				$('[name="nik"]').val(nik);
 				$('[name="nama"]').val(nama);
 				$('[name="telp"]').val(telp);
 				$('[name="email"]').val(email);
-				$('#edit_foto').attr('src', $row.find('img').attr('src'));
+
 
 			});
 

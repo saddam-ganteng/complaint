@@ -85,9 +85,11 @@ class admin extends CI_Controller
 
             if ($upload_image) {
 
-                $config['allowed_types'] = 'gif|jpg|png';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
                 $config['max_size'] = '2048';
                 $config['upload_path'] = './assets/img/profile/';
+
+                $this->upload->initialize($config);
 
                 $this->load->library('upload', $config);
 
@@ -218,8 +220,6 @@ class admin extends CI_Controller
         $name   = $this->input->post('nama');
         $telp   = $this->input->post('telp');
         $email   = $this->input->post('email');
-
-
         // get foto
         $config['upload_path'] = './assets/img/';
         $config['allowed_types'] = 'jpg|png|jpeg|gif';
@@ -241,7 +241,7 @@ class admin extends CI_Controller
                     'foto'       => $foto['file_name'],
                 );
                 $this->db->insert('masyarakat', $data);
-                redirect('asd');
+                redirect('admin/table');
             } else {
                 die("gagal upload");
             }

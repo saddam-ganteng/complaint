@@ -6,7 +6,10 @@
 	background-position: center;
 	background-repeat: no-repeat;
 	z-index: 1;
+}
 
+.bgnav {
+	background-color: #9c27b0;
 }
 
 .darken-pseudo:after {
@@ -20,21 +23,17 @@
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
-.darken-with-text h1 {
-	margin: 0;
-	font-size: 2em;
-	text-align: center;
+#formpass {
 	color: white;
-	padding-top: 50px;
 	position: relative;
 	z-index: 1;
 }
 
 #box {
-	box-shadow: 0px 19px 20px -15px #888888, -15px 0px 10px -15px #888888, 15px 0px 10px -15px #888888;
+	/* box-shadow: 0px 19px 20px -15px #888888, -15px 0px 10px -15px #888888, 15px 0px 10px -15px #888888; */
 	border-radius: 8px;
 	bottom: 60px;
-	height: 800px;
+	height: 750px;
 	background-color: white;
 	z-index: 3;
 }

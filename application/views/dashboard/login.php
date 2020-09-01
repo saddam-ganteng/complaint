@@ -12,16 +12,19 @@
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!--     CSS     -->
     <link rel="stylesheet" href="<?= base_url('assets/'); ?>customcss/login.css">
 
 
     <style>
-
+        /* .row>* {
+            border: solid 1px;
+        } */
     </style>
 
-    background-color: #9c27b0;
+
 
     <title> <?= $title; ?> </title>
 </head>
@@ -48,7 +51,7 @@
                 <div class="col-6 offset-3 text-center ">
                     <?= $this->session->flashdata('message'); ?>
                     <h1 class="text-light">
-                        Selamat Datang di Website Pengaduan Masyarakat</h1>
+                        Welcome to the Public Complaints Website</h1>
                 </div>
             </div>
         </div>
@@ -56,16 +59,95 @@
 
     <!-- Page Content -->
 
-    <div class="container-fluid">
-        <div class="row mx-4">
+    <div class="container-fluid mb-5 ">
+        <div class="row mx-4 shadow-lg rounded">
             <div class="col-12 text-center py-5" id="box">
                 <div class="container py-5">
-                    <h2 class="">Let&apos;s talk product</h2>
-                    <h5 class="">This is the paragraph where you can write more details about your product. Keep you
-                        user engaged by providing meaningful information. Remember that by this time, the user is curious,
-                        otherwise he wouldn&apos;t scroll to get here. Add a button if you want the user to see more.</h5>
+                    <h2 class="">“Berani LAPOR! Untuk Pelayanan Publik yang Lebih Baik”</h2>
+
+                    <div class="row py-5">
+                        <div class="col-4">
+                            <h1><i class="fa fa-edit" style="font-size:70px;color:#9c27b0"></i></h1>
+                            Laporkan keluhan atau aspirasi anda dengan jelas dan lengkap
+                        </div>
+                        <div class="col-4">
+                            <h1><i class="fa fa-comments" style="font-size:70px;color:#9c27b0"></i></h1>
+                            Dalam 5 hari, instansi akan menindaklanjuti dan membalas laporan Anda
+                        </div>
+                        <div class="col-4">
+                            <h1><i class="fa fa-check" style="font-size:70px;color:#9c27b0"></i></h1>
+                            Laporan Anda akan terus ditindaklanjuti hingga terselesaikan
+                        </div>
+                    </div>
+                    <div class="row">
+                        <video class="mx-auto" style="width: 600px;" controls>
+                            <source src="<?= base_url() ?>assets/video/lapor.mp4" type="video/mp4">
+                        </video>
+                    </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-5 mb-5" style="background-color: #9c27b0;">
+        <h3 class="text-center">TOTAL REPORTS NOW</h3>
+        <h1 class="text-center">asd</h1>
+    </div>
+    <!-- <div class="row">
+        <div class="col-1 bg-primary">
+            <p>1</p>
+        </div>
+        <div class="col-1 bg-primary">
+            <p>1</p>
+        </div>
+        <div class="col-1 bg-primary">
+            <p>1</p>
+        </div>
+        <div class="col-1 bg-primary">
+            <p>1</p>
+        </div>
+        <div class="col-1 bg-primary">
+            <p>1</p>
+        </div>
+        <div class="col-1 bg-primary">
+            <p>1</p>
+        </div>
+        <div class="col-1 bg-primary">
+            <p>1</p>
+        </div>
+        <div class="col-1 bg-primary">
+            <p>1</p>
+        </div>
+        <div class="col-1 bg-primary">
+            <p>1</p>
+        </div>
+        <div class="col-1 bg-primary">
+            <p>1</p>
+        </div>
+        <div class="col-1 bg-primary">
+            <p>1</p>
+        </div>
+        <div class="col-1 bg-primary">
+            <p>1</p>
+        </div>
+    </div> -->
+    <div class="container-fluid">
+        <div class="row text-center">
+            <div class="col-4 offset-1 ">
+                <small>Developed by</small><br>
+                <i class="fa fa-user pt-2" style="font-size:50px;color:#9c27b0" data-toggle="tooltip" title="Saddam Dermawan" id='tolme'></i>
+            </div>
+            <div class="col-4 offset-2 ">
+                <small class="m-5">want to know about me?</small> <br>
+                <a href="https://github.com/saddam-der" target="_blank"><i class="fa fa-github pr-2 pt-2" style="font-size:50px;color:#9c27b0" data-toggle="tooltip" title="saddam-der" id='tolgit'></i></a>
+                <a href="https://github.com/saddam-der" target="_blank"><i class="fa fa-facebook-square" style="font-size:50px;color:#9c27b0" data-toggle="tooltip" title="saddam dermawan" id='tolface'></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-5">
+        <div class="row text-center">
+            <div class="col-12"> &copy; DMARE</div>
         </div>
     </div>
 
@@ -102,7 +184,9 @@
                                             <button class="btn btn-lg btn-block text-uppercase" type="submit" style="background-color: #9c27b0;">Login</button>
                                         </form>
                                         <hr>
+                                        <p class="text-center"> <a data-toggle="modal" href="#modalforgot" class="hide-modal" style="color:#9c27b0">Forgot Password</a></p>
                                         <p class="text-center"> don't have an account? <br> <a data-toggle="modal" href="#modalregis" class="hide-modal" style="color:#9c27b0">register here</a></p>
+
                                     </div>
                                 </div>
                             </div>
@@ -163,6 +247,37 @@
             </div>
         </div>
     </div>
+
+    <div class="modal" id="modalforgot">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content" style="background-color: #e5e5e5;">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="container">
+                        <div class="row p-4">
+                            <div class="col-12">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">Forgot Password</h5>
+                                    <hr>
+                                    <form class="form-signin" action="<?= base_url('auth/forgotpassword') ?>" method="post">
+                                        <div class="form-label-group">
+                                            <input type="text" name="email" id="formail" class="form-control" placeholder="Email" require>
+                                            <label for="formail">Email</label>
+                                            <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                                        </div>
+                                        <button class="btn btn-lg btn-block text-uppercase" type="submit" style="background-color: #9c27b0;">Reset Password</button>
+                                    </form>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 <!-- JS, Popper.js, and jQuery -->
@@ -176,6 +291,29 @@
         $("#modalogin").modal("hide");
     });
 
+    $("#modalforgot").on('show.bs.modal', function() {
+        $("#modalogin").modal("hide");
+    });
+
+    $(document).ready(function() {
+        $(window).scroll(function() {
+            var scroll = $(window).scrollTop();
+            //>=, not <=
+            if (scroll >= 600) {
+                //clearHeader, not clearheader - caps H
+                $(".navbar").addClass("bgnav");
+            } else {
+                $(".navbar").removeClass("bgnav");
+            }
+        }); //missing );
+        // document ready  
+    });
+
+    $(document).ready(function() {
+        $('#tolme').tooltip();
+        $('#tolgit').tooltip();
+        $('#tolface').tooltip();
+    });
 
     $(document).ready(function() {
         $("#show_hide_password a").on('click', function(event) {
