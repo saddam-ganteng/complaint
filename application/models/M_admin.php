@@ -107,7 +107,7 @@ class M_admin extends CI_Model
                     <td>' . $row->nama . '</td>
                     <td>' . $row->telp . '</td> 
                     <td>' . $row->email . '</td>
-                    <td><img src="' . base_url() . 'assets/img/' . $row->foto . '" height="100"></td>
+                    <td><img src="' . base_url() . 'assets/img/profile/' . $row->foto . '" height="100"></td>
                 </tr> ';
         }
 

@@ -29,7 +29,7 @@
 				<td><?= $u->telp ?></td>
 				<td><?= $u->email ?></td>
 				<td height="80">
-					<img src="<?= base_url('assets/img/') . $u->foto ?>" alt="foto ini abis" height="60">
+					<img src="<?= base_url('assets/img/profile/') . $u->foto ?>" alt="foto ini abis" height="60">
 				</td>
 			</tr>
 		<?php endforeach; ?>

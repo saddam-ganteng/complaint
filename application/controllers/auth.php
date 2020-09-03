@@ -205,8 +205,29 @@ class auth extends CI_Controller
 
     public function changepassword()
     {
-        $data['title'] = 'Dashboard';
-        $this->load->view('dashboard/changepass', $data);
+        if (!$this->session->userdata('reset_email')) {
+            redirect('auth');
+        }
+
+        $this->form_validation->set_rules('newpass1', 'Password', 'trim|required|min_length[3]|matches[newpass2]');
+        $this->form_validation->set_rules('newpass2', 'Repeat Password', 'trim|required|min_length[3]|matches[newpass1]');
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'Change Password';
+            $this->load->view('dashboard/changepass', $data);
+        } else {
+            $password = password_hash($this->input->post('newpass1'), PASSWORD_DEFAULT);
+            $email = $this->session->userdata('reset_email');
+
+            $this->db->set('password', $password);
+            $this->db->where('email', $email);
+            $this->db->update('login');
+
+            $this->session->unset_userdata('reset_email');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            Password has been Changed! Please login.</div>');
+            redirect('auth');
+        }
     }
 
     public function login_rakyat()
@@ -243,7 +264,7 @@ class auth extends CI_Controller
                             'email' => $user['email'],
                         ];
                         $this->session->set_userdata($data);
-                        redirect('admin');
+                        redirect('rakyat');
                     } elseif ($user['level'] == "admin") {
                         $data = [
                             'email' => $user['email'],

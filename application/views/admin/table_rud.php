@@ -223,7 +223,7 @@
 						"data": "foto",
 						"render": function(data) {
 
-							return '<img src="<?php echo base_url('assets/img/'); ?>' + data + '"style="height:100px;width:100px;" />';
+							return '<img src="<?php echo base_url('assets/img/profile/'); ?>' + data + '"style="height:100px;width:100px;" />';
 
 						}
 					},

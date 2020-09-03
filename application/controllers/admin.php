@@ -221,7 +221,7 @@ class admin extends CI_Controller
         $telp   = $this->input->post('telp');
         $email   = $this->input->post('email');
         // get foto
-        $config['upload_path'] = './assets/img/';
+        $config['upload_path'] = './assets/img/profile';
         $config['allowed_types'] = 'jpg|png|jpeg|gif';
         $config['max_size'] = '2048';  //2MB max
         $config['max_width'] = '4480'; // pixel

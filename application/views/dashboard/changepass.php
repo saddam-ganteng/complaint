@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="<?= base_url('assets/'); ?>customcss/login.css">
-    <title>Hello, world!</title>
+    <title><?= $title; ?></title>
 </head>
 
 <body>
@@ -18,21 +18,22 @@
         <div class="container h-100 ">
             <div class="row h-100 align-items-center">
                 <div class="col-6 offset-3">
-                    <div id="formpass" class="container formpass bg-dark rounded p-5">
-                        <form class="form-signin" action="<?= base_url('auth/login_rakyat') ?>" method="post">
+                    <div id="formpass" class="container formpass bg-light rounded px-5 pb-5 shadow-lg">
+                        <h1 class="text-dark">Change Password For</h1>
+                        <p class="text-dark text-center "><?= $this->session->userdata('reset_email'); ?></p>
+                        <form class="form-signin" action="<?= base_url('auth/changepassword') ?>" method="post">
                             <div class="form-label-group">
                                 <input type="password" name="newpass1" id="newpass1" class="form-control" placeholder="Email" require>
-                                <label for="newpass1">Password</label>
+                                <label for="newpass1">New Password</label>
                                 <?= form_error('newpass1', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
-
                             <div class="form-label-group">
                                 <input type="password" name="newpass2" id="newpass2" class="form-control" placeholder="password" require>
-                                <label for="newpass2">Password</label>
-                                <span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-password float-right"></span>
+                                <label for="newpass2">Repeat New Password</label>
+                                <span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-password float-right mb-3" style="font-size:30px;color:#9c27b0"></span>
                                 <?= form_error('newpass2', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
-                            <button class="btn btn-lg btn-block text-uppercase" type="submit" style="background-color: #9c27b0;">Login</button>
+                            <button class="btn btn-lg btn-block text-uppercase mt-5" type="submit" style="background-color: #9c27b0;">Change Password</button>
                         </form>
                     </div>
                 </div>
@@ -48,7 +49,8 @@
 
     <script>
         $(document).on('click', '.toggle-password', function() {
-            $(this).toggleClass("fa-eye fa-eye-slash");
+            $(this).toggleClass("far fa-eye-slash");
+
             var input1 = $("#newpass1");
             var input2 = $("#newpass2");
             input1.attr('type') === 'password' ? input1.attr('type', 'text') : input1.attr('type', 'password')

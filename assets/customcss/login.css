@@ -23,6 +23,16 @@
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
+.darken-with-text h1 {
+	margin: 0;
+	font-size: 2em;
+	text-align: center;
+	color: white;
+	padding-top: 50px;
+	position: relative;
+	z-index: 1;
+}
+
 #formpass {
 	color: white;
 	position: relative;
