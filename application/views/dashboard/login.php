@@ -66,15 +66,19 @@
                     <h2 class="">“Berani LAPOR! Untuk Pelayanan Publik yang Lebih Baik”</h2>
 
                     <div class="row py-5">
-                        <div class="col-4">
+                        <div class="col-3">
                             <h1><i class="fa fa-edit" style="font-size:70px;color:#9c27b0"></i></h1>
                             Laporkan keluhan atau aspirasi anda dengan jelas dan lengkap
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <h1><i class="fa fa-comments" style="font-size:70px;color:#9c27b0"></i></h1>
                             Dalam 5 hari, instansi akan menindaklanjuti dan membalas laporan Anda
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
+                            <h1><i class="fa fa-share" style="font-size:60px;color:#9c27b0"></i></h1>
+                            Dalam 3 hari, laporan Anda akan diverifikasi dan diteruskan kepada instansi berwenang
+                        </div>
+                        <div class="col-3">
                             <h1><i class="fa fa-check" style="font-size:70px;color:#9c27b0"></i></h1>
                             Laporan Anda akan terus ditindaklanjuti hingga terselesaikan
                         </div>

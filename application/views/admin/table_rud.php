@@ -29,7 +29,7 @@
 								<div class="col-12">
 									<button type="submit" class="btn btn-success" data-toggle="modal" data-target="#ModalInsert"> ADD </button>
 
-									<button type="submit" class="btn btn-primary pull-right ml-2"> <a href="<?php echo site_url('admin/pdfdetails'); ?>" class="text-light">Print PDF</a> </button>
+									<button type="submit" class="btn btn-primary pull-right ml-2"> <a href="<?php echo site_url('admin/print_pdf'); ?>" class="text-light">Print PDF</a> </button>
 
 									<button type="submit" class="btn btn-primary pull-right"> <a href="<?php echo site_url('admin/xml'); ?>" class="text-light">Print XML</a> </button>
 								</div>

@@ -186,22 +186,22 @@ class admin extends CI_Controller
         redirect('admin/table');
     }
 
-    public function pdfdetails() //CETAK PDF
-    {
-        $html_content = '<h3 align="center">Laporan PDF</h3>';
-        $html_content .= $this->M_admin->fetch_single_details();
-        $this->pdf->loadHtml($html_content);
-        $this->pdf->render();
-        $this->pdf->stream("asd.pdf", array("Attachment" => 0));
-    }
+    // public function pdfdetails() //CETAK PDF
+    // {
+    //     $html_content = '<h3 align="center">Laporan PDF</h3>';
+    //     $html_content .= $this->M_admin->fetch_single_details();
+    //     $this->pdf->loadHtml($html_content);
+    //     $this->pdf->render();
+    //     $this->pdf->stream("asd.pdf", array("Attachment" => 0));
+    // }
 
-    public function exl()
-    { //CETAL EXCEL
-        $data = array(
-            'title' => 'Laporan Excel',
-            'user' => $this->M_admin->get_user()
-        );
-        $this->load->view('print', $data);
+    public function print_pdf() //CETAK PDF
+    {
+        $data['user'] = $this->M_admin->get_masyarakat();
+        $this->load->library('pdf');
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "laporan-data.pdf";
+        $this->pdf->load_view('print', $data);
     }
 
     public function xml()

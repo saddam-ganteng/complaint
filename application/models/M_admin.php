@@ -88,34 +88,39 @@ class M_admin extends CI_Model
         }
     }
     //CETAK
-    function fetch_single_details()
+    // function fetch_single_details()
+    // {
+    //     $data = $this->db->get('masyarakat');
+    //     $output = '<table border="1" width="100%" cellspacing="0" cellpadding="15">';
+
+    //     $output .= ' <tr align="center">
+    // 	                <th width="20%">nik</th>
+    // 	                <th width="20%">nama</th>
+    // 	                <th width="20%">telp</th>
+    //                     <th width="20%">email</th>
+    //                     <th width="20%">foto</th>
+    // 	              </tr>';
+    //     foreach ($data->result() as $row) {
+    //         $output .= '
+    //             <tr>	
+    //                 <td>' . $row->nik . '</td>
+    //                 <td>' . $row->nama . '</td>
+    //                 <td>' . $row->telp . '</td> 
+    //                 <td>' . $row->email . '</td>
+    //                 <td><img src="' . base_url() . 'assets/img/profile/' . $row->foto . '" height="100"></td>
+    //             </tr> ';
+    //     }
+    //     // $output .= '<tr>
+    //     // 	              <td colspan="2" align="center"><a href="'.base_url().'htmltopdf" class="btn btn-primary">Back</a></td>
+    //     //             </tr>';
+    //     $output .= '</table>';
+    //     return $output;
+    // }
+
+    public function get_masyarakat()
     {
         $data = $this->db->get('masyarakat');
-        $output = '<table border="1" width="100%" cellspacing="0" cellpadding="15">';
-
-        $output .= ' <tr align="center">
-		                <th width="20%">nik</th>
-		                <th width="20%">nama</th>
-		                <th width="20%">telp</th>
-                        <th width="20%">email</th>
-                        <th width="20%">foto</th>
-		              </tr>';
-        foreach ($data->result() as $row) {
-            $output .= '
-                <tr>	
-                    <td>' . $row->nik . '</td>
-                    <td>' . $row->nama . '</td>
-                    <td>' . $row->telp . '</td> 
-                    <td>' . $row->email . '</td>
-                    <td><img src="' . base_url() . 'assets/img/profile/' . $row->foto . '" height="100"></td>
-                </tr> ';
-        }
-
-        // $output .= '<tr>
-        // 	              <td colspan="2" align="center"><a href="'.base_url().'htmltopdf" class="btn btn-primary">Back</a></td>
-        //             </tr>';
-        $output .= '</table>';
-        return $output;
+        return $data->result();
     }
 
     public function get_user()
