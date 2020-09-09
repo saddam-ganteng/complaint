@@ -23,7 +23,7 @@
         </a>
       </li>
       <li class="nav-item ">
-        <a class="nav-link" href="./typography.html">
+        <a class="nav-link" href="<?= base_url('admin/caselist') ?>">
           <i class="material-icons">library_books</i>
           <p>Case List</p>
         </a>

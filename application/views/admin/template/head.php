@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 <!-- font -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+
 <link href="<?php echo site_url() . 'assets/material/css/material-dashboard.css' ?>" rel="stylesheet" type="text/css" />
 
 

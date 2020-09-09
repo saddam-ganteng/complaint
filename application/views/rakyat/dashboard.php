@@ -107,7 +107,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="fotocom" name="fotocom">
+                                            <input type="file" class="custom-file-input" id="fotocom" name="fotocom" multiple>
                                             <label class="custom-file-label" for="fotocom">Choose file</label>
                                             <small id="fotocom" class="form-text text-muted">Jika Ada, jika tidak ada tidak usah</small>
                                         </div>
@@ -238,7 +238,6 @@
                 if (scroll > 490) {
                     //clearHeader, not clearheader - caps H
                     $(".navbar").css('background', 'white');
-                    $(".navbar").addClass('shadow-lg')
                 } else {
                     $(".navbar").css('background', 'transparent');
                 }

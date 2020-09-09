@@ -32,8 +32,8 @@
     }
 
 
-    .row>* {
+    /* .row>* {
         border: solid 1px;
-    }
+    } */
 </style>
 <title>Document</title>

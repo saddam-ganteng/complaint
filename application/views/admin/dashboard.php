@@ -28,6 +28,7 @@
 									</div>
 									<p class="card-category">User</p>
 									<h3 class="card-title">
+										<?= $total_user; ?>
 										<!-- <small>GB</small> -->
 									</h3>
 								</div>
@@ -46,7 +47,7 @@
 										<i class="fa fa-list"></i>
 									</div>
 									<p class="card-category">TOTAL CASE</p>
-									<h3 class="card-title"></h3>
+									<h3 class="card-title"><?= $total_kasus; ?></h3>
 								</div>
 								<div class="card-footer">
 									<div class="stats">
@@ -62,7 +63,7 @@
 										<i class="material-icons">update</i>
 									</div>
 									<p class="card-category">CASE IN PROSES</p>
-									<h3 class="card-title"></h3>
+									<h3 class="card-title"><?= $total_proses->status; ?></h3>
 								</div>
 								<div class="card-footer">
 									<div class="stats">
@@ -78,7 +79,7 @@
 										<i class="fa fa-check-square"></i>
 									</div>
 									<p class="card-category">CASE COMPLETED</p>
-									<h3 class="card-title"></h3>
+									<h3 class="card-title"><?= $total_selesai->status; ?></h3>
 								</div>
 								<div class="card-footer">
 									<div class="stats">
@@ -137,41 +138,42 @@
 
 
 	<script>
-		// START CHART JS
-		// $(function() {
-		// 	//get the bar chart canvas
-		// 	var cData = JSON.parse(``);
-		// 	var ctx = $("#myChart");
-		// 	//bar chart data
-		// 	var data = {
-		// 		labels: cData.label,
-		// 		datasets: [{
-		// 			label: 'Rakyat Membuat Laporan ',
-		// 			data: cData.data,
-		// 			borderColor: '#93C3D2',
+		//START CHART JS
+		$(function() {
+			//get the bar chart canvas
+			var cData = JSON.parse(`<?php echo $chart_data; ?>`);
+			var ctx = $("#myChart");
+			//bar chart data
+			var data = {
+				labels: cData.label,
+				datasets: [{
+					label: 'Rakyat Membuat Laporan ',
+					data: cData.data,
+					borderColor: '#93C3D2',
+				}]
+			};
 
-		// 		}]
-		// 	};
-		// 	//create bar Chart class object
-		// 	var chart1 = new Chart(ctx, {
-		// 		type: "line",
-		// 		data: data,
-		// 		options: {
-		// 			legend: {
-		// 				display: false,
-		// 			},
-		// 			scales: {
-		// 				xAxes: [{
-		// 					stacked: true
-		// 				}],
-		// 				yAxes: [{
-		// 					stacked: true
-		// 				}]
-		// 			}
-		// 		}
-		// 	});
-		// });
-		// END CHART JS
+			//create bar Chart class object
+			var chart1 = new Chart(ctx, {
+				type: "line",
+				data: data,
+				options: {
+					legend: {
+						display: false,
+					},
+					scales: {
+						xAxes: [{
+							stacked: true
+						}],
+						yAxes: [{
+							stacked: true,
+							beginAtZero: true
+						}]
+					}
+				}
+			});
+		});
+		//END CHART JS
 	</script>
 	<script>
 

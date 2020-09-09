@@ -18,22 +18,22 @@ class admin extends CI_Controller
 
     public function index()
     {
-        // // CHART JS
-        // $query =  $this->db->query("SELECT COUNT(id_pengaduan) as count,MONTHNAME(tgl_pengaduan) as month_name FROM pengaduan WHERE YEAR(tgl_pengaduan) = '" . date('Y') . "'
-        // GROUP BY YEAR(tgl_pengaduan),MONTH(tgl_pengaduan)");
-        // $record = $query->result();
-        // $data = [];
-        // foreach ($record as $row) {
-        //     $data['label'][] = $row->month_name;
-        //     $data['data'][] = (int) $row->count;
-        // }
-        // $data['chart_data'] = json_encode($data);
-        // // CHART JS
-        // // hiasan
-        // $data['total_user'] = $this->M_admin->hitungJumlahrakyat();
-        // $data['total_proses'] = $this->M_admin->jumlah_proses();
-        // $data['total_selesai'] = $this->M_admin->jumlah_selesai();
-        // $data['total_kasus'] = $this->M_admin->hitungJumlahkasus();
+        // CHART JS
+        $query =  $this->db->query("SELECT COUNT(id_pengaduan) as count,MONTHNAME(tgl_pengaduan) as month_name FROM pengaduan WHERE YEAR(tgl_pengaduan) = '" . date('Y') . "'
+        GROUP BY YEAR(tgl_pengaduan),MONTH(tgl_pengaduan)");
+        $record = $query->result();
+        $data = [];
+        foreach ($record as $row) {
+            $data['label'][] = $row->month_name;
+            $data['data'][] = (int) $row->count;
+        }
+        $data['chart_data'] = json_encode($data);
+        // CHART JS
+        // hiasan
+        $data['total_user'] = $this->M_admin->hitungJumlahrakyat();
+        $data['total_proses'] = $this->M_admin->jumlah_proses();
+        $data['total_selesai'] = $this->M_admin->jumlah_selesai();
+        $data['total_kasus'] = $this->M_admin->hitungJumlahkasus();
 
         $data['title'] = 'Dashboard';
         $data['navbar'] = 'Dashboard';
@@ -56,6 +56,75 @@ class admin extends CI_Controller
         $data['navbar'] = 'Profile';
         $data['user'] = $this->db->get_where('login', ['email' => $this->session->userdata('email')])->row_array();
         $this->load->view('admin/user_profile', $data);
+    }
+
+    public function caselist()
+    {
+        $data['pengaduan'] = $this->M_admin->get_report();
+        $data['title'] = 'Case List';
+        $data['navbar'] = 'Case List';
+        $data['user'] = $this->db->get_where('login', ['email' => $this->session->userdata('email')])->row_array();
+        $this->load->view('admin/case_list', $data);
+    }
+
+    public function detail_case()
+    {
+        $data['pengaduan'] = $this->M_admin->get_report();
+        $id = $this->input->get('link_id');
+        $data['perid'] = $this->M_admin->show_kasus($id);
+
+        $content                = $this->db->query("SELECT * FROM pengaduan WHERE id_pengaduan='$id'")->row_array();
+        $data['id_pengaduan']   = $content['id_pengaduan'];
+
+        $data['title'] = 'Case List';
+        $data['navbar'] = 'Case List';
+        $data['user'] = $this->db->get_where('login', ['email' => $this->session->userdata('email')])->row_array();
+        $this->load->view('admin/case_detail', $data);
+    }
+
+    public function pending_case()
+    {
+        $id = $this->input->get('link_id');
+        $data['perid'] = $this->M_admin->show_kasus($id);
+        $this->db->set('status', 'proses');
+        $this->db->where('id_pengaduan', $id);
+        $this->db->update('pengaduan');
+        redirect('admin/caselist');
+        // var_dump($data);
+        // die;
+    }
+
+    public function complate_case()
+    {
+        $id = $this->input->get('link_id');
+        $data['perid'] = $this->M_admin->show_kasus($id);
+        $this->db->set('status', 'selesai');
+        $this->db->set('tgl_selesai', date("Y-m-d H:i"));
+        $this->db->where('id_pengaduan', $id);
+        $this->db->update('pengaduan');
+        // var_dump($data);
+        // die;
+        redirect('admin/caselist');
+    }
+
+    public function komen_admin()
+    {
+        $idkomen        = $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array();
+        $id             = $this->input->post('id');
+        $nama           = $this->input->post('nama');
+        $isi_komen      = $this->input->post('isikomen');
+        $level          = $this->input->post('levelkomen');
+        $data = [
+            'id_pengaduan' => $id,
+            'tgl_tanggapan' => date("F j, Y, H:i"),
+            'tanggapan' => $isi_komen,
+            'id' => $idkomen['id_petugas'],
+            'nama' => $nama,
+            'level' => $level
+        ];
+
+        $this->db->insert('tanggapan', $data);
+        redirect('admin/detail_case/?link_id=' . $id);
     }
 
     public function editprofile()
@@ -210,7 +279,7 @@ class admin extends CI_Controller
         header('Content-Disposition: attachment; filename="Data Pengaduan.xls"'); // Set nama file excel nya
         header('Cache-Control: max-age=0');
 
-        $data['user'] = $this->M_admin->get_user();
+        $data['user'] = $this->M_admin->get_masyarakat();
         $this->load->view('print', $data);
     }
 

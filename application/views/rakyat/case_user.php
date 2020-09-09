@@ -51,9 +51,9 @@
         </div>
     </div> -->
 
-    <div class="container">
+    <div class="container" style="margin-top: 100px;">
         <div class="row ">
-            <div class="col-10 offset-1 bg-light">
+            <div class="col-10 offset-1 bg-light shadow-lg">
                 <nav class="pt-4">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Pending</a>
@@ -83,7 +83,7 @@
                                             <td><?= $p['kategori'] ?></td>
 
                                             <td><?= $p['tgl_pengaduan'] ?></td>
-                                            <td> <a name="" id="" class="btn btn-primary" href="#" role="button">Detail</a> </td>
+                                            <td> <a name="" id="" class="btn btn-primary" href="<?= site_url('rakyat/detail_case?link_id=' . $p['id_pengaduan'] . ''); ?>" role="button">Detail</a> </td>
                                         </tr>
                                 <?php }
                                 } ?>
@@ -111,7 +111,7 @@
                                             <td><?= $p['kategori'] ?></td>
 
                                             <td><?= $p['tgl_pengaduan'] ?></td>
-                                            <td> <a name="" id="" class="btn btn-primary" href="#" role="button">Detail</a> </td>
+                                            <td> <a name="" id="" class="btn btn-primary" href="<?= site_url('rakyat/detail_case?link_id=' . $p['id_pengaduan'] . ''); ?>" role="button">Detail</a> </td>
                                         </tr>
                                 <?php }
                                 } ?>
@@ -154,7 +154,7 @@
 
 
 
-    <!-- <div class="container-fluid pt-5" style="background-color: #F7F8F9;">
+    <div class="container-fluid pt-5" style="background-color: #F7F8F9; margin-top:300px;">
         <div class="row text-center">
             <div class="col-4 offset-1 ">
                 <small>Developed by</small><br>
@@ -166,13 +166,13 @@
                 <a href="https://github.com/saddam-der" target="_blank"><i class="fa fa-facebook-square" style="font-size:50px;color:#9c27b0" data-toggle="tooltip" title="saddam dermawan" id='tolface'></i></a>
             </div>
         </div>
-    </div> -->
+    </div>
 
-    <!-- <div class="container-fluid py-5 mt-5" style="background-color: #F7F8F9;">
+    <div class="container-fluid py-5" style="background-color: #F7F8F9;">
         <div class="row text-center">
             <div class="col-12"> &copy; DMARE</div>
         </div>
-    </div> -->
+    </div>
 
 
 
@@ -187,7 +187,23 @@
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
+            $(document).ready(function() {
+                $('#tolme').tooltip();
+                $('#tolgit').tooltip();
+                $('#tolface').tooltip();
+            });
 
+            $(window).scroll(function() {
+                var scroll = $(window).scrollTop();
+                //>=, not <=
+                if (scroll > 80) {
+                    //clearHeader, not clearheader - caps H
+                    $(".navbar").css('background', 'white');
+                    $(".navbar").addClass('shadow-lg')
+                } else {
+                    $(".navbar").css('background', 'transparent');
+                }
+            }); //missing );
 
 
         });

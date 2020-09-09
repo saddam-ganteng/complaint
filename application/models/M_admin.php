@@ -123,11 +123,6 @@ class M_admin extends CI_Model
         return $data->result();
     }
 
-    public function get_user()
-    {
-        $data = $this->db->get('masyarakat');
-        return $data->result();
-    }
 
     public function count_user()
     {
@@ -144,5 +139,18 @@ class M_admin extends CI_Model
         $query = $this->db->get();
 
         return $query->row();
+    }
+
+    public function get_report()
+    {
+        $data = $this->db->get('pengaduan');
+        return $data->result();
+    }
+
+    public function show_kasus($id)
+    {
+        $this->db->where("id_pengaduan", $id);
+        $query = $this->db->get("pengaduan");
+        return $query->result();
     }
 }

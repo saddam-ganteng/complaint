@@ -7,7 +7,7 @@
     <!-- head -->
 </head>
 
-<body id="body" style="height:1000px;">
+<body id="body" style="height:800px;">
 
     <?php $this->load->view("rakyat/template/navbar.php") ?>
 
@@ -18,81 +18,65 @@
                 <div class="d-flex bd-highlight">
                     <div class="p-2 flex-shrink-1 bd-highlight"><img src="<?= base_url('assets/img/profile/') . $user['foto'] ?>" width="55" height="55" class="rounded-circle m-4"></div>
                     <div class="p-2 w-100 bd-highlight mt-4">
-                        <p> <a href="#"><?= $user['nama'] ?></a> <i class="fa fa-globe pl-4 text-muted"><small> Website </small></i> </p>
+                        <p>
+                            <a href="#"><?= $user['nama'] ?></a>
+                            <i class="fa fa-globe pl-4 text-muted"><small> Website </small></i>
+                            <?php foreach ($perid as $i) { ?>
+                                <small class="float-right"><?= $i->tgl_pengaduan ?></small>
+                            <?php } ?>
+                        </p>
                         <?php foreach ($perid as $i) { ?>
                             <p class="pt-1 text-muted">Tracking ID : #<?= $i->id_pengaduan ?> </p>
                             <h2 class="pt-3"><?= $i->judul ?></h2>
                             <p class="pt-2"><?= $i->isi_laporan ?></p>
-
-                            <nav>
-                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-
-                                    <a class="nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fa fa-comments text-muted">
-                                            Comments </i> </a>
-
-                                    <a class="nav-link" id="nav-profile-tab" data-toggle="modal" data-target="#modalhapuscase" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fa fa-trash text-muted">
-                                            Delete Case </i> </a>
-
-                                </div>
-                            </nav>
-                            <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                    <p>ini comments</p>
-
-                                </div>
-                            </div>
                         <?php } ?>
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-link " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fa fa-comments text-muted"> Comments</i></a>
+
+                                <a class="nav-link" id="nav-profile-tab" data-toggle="modal" data-target="#modalhapuscase" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fa fa-trash text-muted"> Delete Case</i></a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <?php $id_pengaduan =  $id_pengaduan;
+                                $query = $this->db->query("SELECT * FROM tanggapan WHERE id_pengaduan = '$id_pengaduan'");
+                                foreach ($query->result() as $utama) : ?>
+                                    <div class="d-flex bd-highlight" style="background-color: white;">
+                                        <div class="p-2 w-100 bd-highlight">
+                                            <p><strong> <?= $utama->nama ?> </strong></p>
+                                            <p><?= $utama->tanggapan ?></p>
+                                        </div>
+                                        <div class="p-2 flex-shrink-1 bd-highlight">
+                                            <p class="text-center"><small><?= $utama->tgl_tanggapan ?></small></p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                <?php endforeach; ?>
+                                <?php if ($i->status == 'proses') { ?>
+                                    <form class="mb-5" method="POST" action="<?= base_url('rakyat/komen') ?>">
+                                        <div>
+                                            <input type="hidden" value="<?= $id_pengaduan ?>" name="id">
+                                            <input type="hidden" value="<?= $user['level'] ?>" name="levelkomen">
+                                            <input type="hidden" name="nama" value="<?= $user['nama'] ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea class="form-control" id="isikomen" rows="3" name="isikomen" placeholder="Your Comment..." style="resize: none;"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn" btn-lg btn-block" style="background-color: #9c27b0;">Comment</button>
+                                    </form>
+                                <?php } ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-1 bg-primary">
-                <p>1</p>
-            </div>
-            <div class="col-1 bg-primary">
-                <p>1</p>
-            </div>
-            <div class="col-1 bg-primary">
-                <p>1</p>
-            </div>
-            <div class="col-1 bg-primary">
-                <p>1</p>
-            </div>
-            <div class="col-1 bg-primary">
-                <p>1</p>
-            </div>
-            <div class="col-1 bg-primary">
-                <p>1</p>
-            </div>
-            <div class="col-1 bg-primary">
-                <p>1</p>
-            </div>
-            <div class="col-1 bg-primary">
-                <p>1</p>
-            </div>
-            <div class="col-1 bg-primary">
-                <p>1</p>
-            </div>
-            <div class="col-1 bg-primary">
-                <p>1</p>
-            </div>
-            <div class="col-1 bg-primary">
-                <p>1</p>
-            </div>
-            <div class="col-1 bg-primary">
-                <p>1</p>
-            </div>
-        </div>
-
-    </div>
 
 
-
-    <!-- <div class="container-fluid pt-5" style="background-color: #F7F8F9;">
+    <div class="container-fluid pt-5" style="background-color: #F7F8F9; margin-top:200px">
         <div class="row text-center">
             <div class="col-4 offset-1 ">
                 <small>Developed by</small><br>
@@ -104,7 +88,7 @@
                 <a href="https://github.com/saddam-der" target="_blank"><i class="fa fa-facebook-square" style="font-size:50px;color:#9c27b0" data-toggle="tooltip" title="saddam dermawan" id='tolface'></i></a>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <div class="container-fluid py-5" style="background-color: #F7F8F9;">
         <div class="row text-center">
@@ -141,7 +125,7 @@
             $(window).scroll(function() {
                 var scroll = $(window).scrollTop();
                 //>=, not <=
-                if (scroll > 490) {
+                if (scroll > 90) {
                     //clearHeader, not clearheader - caps H
                     $(".navbar").css('background', 'white');
                     $(".navbar").addClass('shadow-lg')

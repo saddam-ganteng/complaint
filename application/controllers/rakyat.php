@@ -30,9 +30,32 @@ class rakyat extends CI_Controller
         $id = $this->input->get('link_id');
         $data['perid'] = $this->M_rakyat->show_kasus($id);
 
+        $content                = $this->db->query("SELECT * FROM pengaduan WHERE id_pengaduan='$id'")->row_array();
+        $data['id_pengaduan']   = $content['id_pengaduan'];
+
         // var_dump($data);
         // die;
         $this->load->view('rakyat/case_detail', $data);
+    }
+
+    public function komen()
+    {
+        $nikkomen       = $this->db->get_where('masyarakat', ['email' => $this->session->userdata('email')])->row_array();
+        $id             = $this->input->post('id');
+        $nama           = $this->input->post('nama');
+        $isi_komen      = $this->input->post('isikomen');
+        $level          = $this->input->post('levelkomen');
+        $data = [
+            'id_pengaduan' => $id,
+            'tgl_tanggapan' => date("F j, Y, H:i"),
+            'tanggapan' => $isi_komen,
+            'id' => $nikkomen['nik'],
+            'nama' => $nama,
+            'level' => $level,
+        ];
+
+        $this->db->insert('tanggapan', $data);
+        redirect('rakyat/detail_case/?link_id=' . $id);
     }
 
     public function my_case()
@@ -78,14 +101,14 @@ class rakyat extends CI_Controller
             $towncom      = $this->input->post('towncom');
             $catecom      = $this->input->post('catecom');
             $data = [
-                'tgl_pengaduan' => date("F j, Y"),
+                'tgl_pengaduan' =>  date("Y-m-d H:i"),
                 'nik' => $nikcom['nik'],
                 'jenis' => $typecom,
                 'judul' => $titlecom,
                 'kota' => $towncom,
                 'isi_laporan' => $contentcom,
                 'kategori' => $catecom,
-                'status' => 'proses',
+                'status' => 'pending',
             ];
             // get foto
             $upload_image = $_FILES['fotocom']['name'];
