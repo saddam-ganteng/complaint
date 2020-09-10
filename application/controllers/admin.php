@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+require('./application/third_party/phpoffice/vendor/autoload.php');
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class admin extends CI_Controller
 {
     public function __construct()
@@ -255,22 +260,22 @@ class admin extends CI_Controller
         redirect('admin/table');
     }
 
-    // public function pdfdetails() //CETAK PDF
-    // {
-    //     $html_content = '<h3 align="center">Laporan PDF</h3>';
-    //     $html_content .= $this->M_admin->fetch_single_details();
-    //     $this->pdf->loadHtml($html_content);
-    //     $this->pdf->render();
-    //     $this->pdf->stream("asd.pdf", array("Attachment" => 0));
-    // }
-
     public function print_pdf() //CETAK PDF
     {
         $data['user'] = $this->M_admin->get_masyarakat();
         $this->load->library('pdf');
         $this->pdf->setPaper('A4', 'potrait');
         $this->pdf->filename = "laporan-data.pdf";
-        $this->pdf->load_view('print', $data);
+        $this->pdf->load_view('print/print_rakyat', $data);
+    }
+
+    public function print_petugas_pdf() //CETAK PDF
+    {
+        $data['user'] = $this->M_admin->get_petugas();
+        $this->load->library('pdf');
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "laporan-data.pdf";
+        $this->pdf->load_view('print/print_petugas', $data);
     }
 
     public function xml()
@@ -280,42 +285,53 @@ class admin extends CI_Controller
         header('Cache-Control: max-age=0');
 
         $data['user'] = $this->M_admin->get_masyarakat();
-        $this->load->view('print', $data);
+        $this->load->view('print/print_rakyat', $data);
     }
 
-    public function insertray()
+    public function xml_admin()
     {
-        $nik   = $this->input->post('nik');
-        $name   = $this->input->post('nama');
-        $telp   = $this->input->post('telp');
-        $email   = $this->input->post('email');
-        // get foto
-        $config['upload_path'] = './assets/img/profile';
-        $config['allowed_types'] = 'jpg|png|jpeg|gif';
-        $config['max_size'] = '2048';  //2MB max
-        $config['max_width'] = '4480'; // pixel
-        $config['max_height'] = '4480'; // pixel
-        $config['file_name'] = $_FILES['fotoa']['name'];
+        $data = $this->M_admin->get_petugas();
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
 
-        $this->upload->initialize($config);
+        $sheet = $spreadsheet->getActiveSheet();
 
-        if (!empty($_FILES['fotoa']['name'])) {
-            if ($this->upload->do_upload('fotoa')) {
-                $foto = $this->upload->data();
-                $data = array(
-                    'nik'       => $nik,
-                    'nama'       => $name,
-                    'telp'       => $telp,
-                    'email'       => $email,
-                    'foto'       => $foto['file_name'],
-                );
-                $this->db->insert('masyarakat', $data);
-                redirect('admin/table');
-            } else {
-                die("gagal upload");
-            }
-        } else {
-            echo "tidak masuk";
+        $sheet->setCellValue('A3', 'ID Officer');
+        $sheet->setCellValue('B3', 'Nama');
+        $sheet->setCellValue('C3', 'Phone Number');
+        $sheet->setCellValue('D3', 'Email');
+
+        $x = 4;
+        foreach ($data as $row) {
+            $sheet->setCellValue('A' . $x, $row->id_petugas);
+            $sheet->setCellValue('B' . $x, $row->nama);
+            $sheet->setCellValue('C' . $x, $row->telp);
+            $sheet->setCellValue('D' . $x, $row->email);
+            $x++;
         }
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'laporan-excel-Data Petugas';
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
+
+    function get_admin_json()
+    {     //get product data and encode to be JSON object
+        echo $this->M_admin->get_all_admin();
+    }
+
+    public function table_petugas()
+    {
+        $data['total_user'] = $this->M_admin->hitungJumlahpetugas();
+        $data['title'] = 'List Offcer';
+        $data['navbar'] = 'List Offcer';
+        $data['user'] = $this->db->get_where('login', ['email' => $this->session->userdata('email')])->row_array();
+        $this->load->view('admin/table_rud_', $data);
     }
 }

@@ -18,8 +18,8 @@
       </li>
       <li class="nav-item ">
         <a class="nav-link" href="<?= base_url('admin/table') ?>">
-          <i class="material-icons">content_paste</i>
-          <p>Table List</p>
+          <i class="material-icons">groups</i>
+          <p>User List</p>
         </a>
       </li>
       <li class="nav-item ">
@@ -28,7 +28,20 @@
           <p>Case List</p>
         </a>
       </li>
-
+      <?php if ($user['level'] == "admin") { ?>
+        <li class="nav-item ">
+          <a class="nav-link" href="<?= base_url('admin/caselist') ?>">
+            <i class="material-icons">group_add</i>
+            <p>Add Offcer</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="<?= base_url('admin/table_petugas') ?>">
+            <i class="material-icons">group</i>
+            <p>Offcer List</p>
+          </a>
+        </li>
+      <?php } ?>
       <!-- <li class="nav-item active-pro ">
             <a class="nav-link" href="./upgrade.html">
               <i class="material-icons">unarchive</i>

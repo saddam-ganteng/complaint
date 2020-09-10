@@ -51,7 +51,7 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<label class="bmd-label-floating">Email</label>
-												<input type="text" name="email" class="form-control" value="<?= $user['email'] ?>">
+												<input type="text" name="email" class="form-control" disabled value="<?= $user['email'] ?>">
 											</div>
 										</div>
 										<div class="col-md-4">
