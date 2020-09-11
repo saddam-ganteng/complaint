@@ -17,12 +17,6 @@
         </a>
       </li>
       <li class="nav-item ">
-        <a class="nav-link" href="<?= base_url('admin/table') ?>">
-          <i class="material-icons">groups</i>
-          <p>User List</p>
-        </a>
-      </li>
-      <li class="nav-item ">
         <a class="nav-link" href="<?= base_url('admin/caselist') ?>">
           <i class="material-icons">library_books</i>
           <p>Case List</p>
@@ -30,7 +24,13 @@
       </li>
       <?php if ($user['level'] == "admin") { ?>
         <li class="nav-item ">
-          <a class="nav-link" href="<?= base_url('admin/caselist') ?>">
+          <a class="nav-link" href="<?= base_url('admin/table') ?>">
+            <i class="material-icons">groups</i>
+            <p>User List</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="<?= base_url('admin/insert_officer') ?>">
             <i class="material-icons">group_add</i>
             <p>Add Offcer</p>
           </a>

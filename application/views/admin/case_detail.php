@@ -21,6 +21,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
+                            <?= $this->session->flashdata('message'); ?>
                             <div class="card">
                                 <div class="card-header card-header-primary">
                                     <div class="nav-tabs-navigation">
@@ -32,12 +33,19 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link active" href="#pendingtab" data-toggle="tab">Detail</a>
                                                 </li>
+                                                <?php foreach ($perid as $i) {
+                                                    if ($i->status == 'selesai') { ?>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link " href="#pendingtab" data-toggle="tab">Print</a>
+                                                        </li>
+                                                <?php }
+                                                } ?>
                                                 <li class="nav-item ml-auto">
                                                     <?php foreach ($perid as $i) {
                                                         if ($i->status == 'proses') { ?>
                                                             <a name="" id="" class="btn btn-primary float-right" href="<?= site_url('admin/complate_case?link_id=' . $i->id_pengaduan . ''); ?>" role="button"><i class="material-icons">check</i></a>
                                                         <?php } else if ($i->status == 'selesai') { ?>
-                                                            <p><?= $i->tgl_selesai ?></p>
+                                                            <p> Date complete : <?= $i->tgl_selesai ?></p>
                                                     <?php }
                                                     } ?>
                                                 </li>
@@ -47,6 +55,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="tab-content ">
+
                                         <div class="tab-pane active" id="pendingtab">
                                             <?php foreach ($perid as $i) { ?>
                                                 <p class="pt-1 text-muted">Tracking ID : #<?= $i->id_pengaduan ?> </p>

@@ -114,22 +114,32 @@ class admin extends CI_Controller
 
     public function komen_admin()
     {
-        $idkomen        = $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array();
-        $id             = $this->input->post('id');
-        $nama           = $this->input->post('nama');
-        $isi_komen      = $this->input->post('isikomen');
-        $level          = $this->input->post('levelkomen');
-        $data = [
-            'id_pengaduan' => $id,
-            'tgl_tanggapan' => date("F j, Y, H:i"),
-            'tanggapan' => $isi_komen,
-            'id' => $idkomen['id_petugas'],
-            'nama' => $nama,
-            'level' => $level
-        ];
+        $this->form_validation->set_rules('isikomen', 'Comment', 'required|trim', [
+            'required' => 'Please enter a Comment in the field!',
+        ]);
 
-        $this->db->insert('tanggapan', $data);
-        redirect('admin/detail_case/?link_id=' . $id);
+        if ($this->form_validation->run() == false) {
+            $id             = $this->input->post('id');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            Please fill in the comments </div>');
+            redirect('admin/detail_case/?link_id=' . $id);
+        } else {
+            $idkomen        = $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array();
+            $id             = $this->input->post('id');
+            $nama           = $this->input->post('nama');
+            $isi_komen      = $this->input->post('isikomen');
+            $level          = $this->input->post('levelkomen');
+            $data = [
+                'id_pengaduan' => $id,
+                'tgl_tanggapan' => date("F j, Y, H:i"),
+                'tanggapan' => $isi_komen,
+                'id' => $idkomen['id_petugas'],
+                'nama' => $nama,
+                'level' => $level
+            ];
+            $this->db->insert('tanggapan', $data);
+            redirect('admin/detail_case/?link_id=' . $id);
+        }
     }
 
     public function editprofile()
@@ -150,9 +160,8 @@ class admin extends CI_Controller
             $this->load->view('admin/user_profile', $data);
         } else {
             //
-
             $name = $this->input->post('name');
-            $email = $this->input->post('email');
+            $email = $this->input->post('emailqwe');
             $telp = $this->input->post('telp');
 
             $upload_image = $_FILES['foto']['name'];
@@ -181,7 +190,7 @@ class admin extends CI_Controller
 
             $this->db->set('nama', $name);
             $this->db->set('telp', $telp);
-            $this->db->where('email', $email);
+            $this->db->where('email', $this->session->userdata('email'));
             $this->db->update('login');
             $this->session->set_flashdata('message', '<div class="alert alert-success mt-3" role="alert">
             congratulations, the account has been updated! </div>');
@@ -333,5 +342,46 @@ class admin extends CI_Controller
         $data['navbar'] = 'List Offcer';
         $data['user'] = $this->db->get_where('login', ['email' => $this->session->userdata('email')])->row_array();
         $this->load->view('admin/table_rud_', $data);
+    }
+
+    public function insert_officer()
+    {
+        $this->form_validation->set_rules('nameoff', 'Name', 'required|trim', [
+            'required' => 'Please enter a name in the field!',
+        ]);
+        $this->form_validation->set_rules('passwordoff', 'Password', 'required|trim|min_length[3]', [
+            'required' => 'Please enter a Password in the field!',
+            'min_length' => 'Password too short!',
+        ]);
+        $this->form_validation->set_rules('emailoff', 'Email', 'required|trim|valid_email|is_unique[login.email]', [
+            'required' => 'Please enter a valid email in the field!',
+            'is_unique' => 'This Email is already registered!'
+        ]);
+        $this->form_validation->set_rules('telpoff', 'Phone Number', 'required|trim', [
+            'required' => 'Please enter the Phone Number in the field!',
+        ]);
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'Add Offcer';
+            $data['navbar'] = 'Add Offcer';
+            $data['user'] = $this->db->get_where('login', ['email' => $this->session->userdata('email')])->row_array();
+            $this->load->view('admin/add_officer', $data);
+        } else {
+            $data['title'] = 'Add Offcer';
+            $data['navbar'] = 'Add Offcer';
+
+            $this->load->view('admin/add_officer', $data);
+            $data = [
+                'nama' => htmlspecialchars($this->input->post('nameoff', true)),
+                'email' => htmlspecialchars($this->input->post('emailoff', true)),
+                'telp' => $this->input->post('telpoff'),
+                'level' => $this->input->post('leveloff'),
+                'foto' => 'default.jpg',
+                'password' => password_hash($this->input->post('passwordoff'), PASSWORD_DEFAULT),
+            ];
+            $this->db->insert('petugas', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            congratulations! account has been created!</div>');
+            redirect('admin/insert_officer');
+        }
     }
 }

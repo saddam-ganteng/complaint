@@ -264,7 +264,7 @@ class auth extends CI_Controller
                             'email' => $user['email'],
                         ];
                         $this->session->set_userdata($data);
-                        redirect('rakyat');
+                        redirect('admin');
                     } elseif ($user['level'] == "admin") {
                         $data = [
                             'email' => $user['email'],
@@ -276,7 +276,7 @@ class auth extends CI_Controller
                             'email' => $user['email'],
                         ];
                         $this->session->set_userdata($data);
-                        redirect('asdjkl');
+                        redirect('admin');
                     } else {
                         redirect('authasd');
                     }
